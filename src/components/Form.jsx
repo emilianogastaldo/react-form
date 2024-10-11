@@ -1,5 +1,4 @@
-import { useState } from "react";
-import ChangeInput from "./ChangeInput";
+import { useEffect, useState } from "react";
 import MultiCheckbox from "./MultiCheckbox";
 
 const formTemplate = {
@@ -62,9 +61,6 @@ const formTemplate = {
 }
 
 const Form = () => {
-    const [titles, setTitles] = useState([]);
-    const [title, setTitle] = useState('');
-
     const initialData = {
         title: '',
         image: '',
@@ -75,19 +71,6 @@ const Form = () => {
     };
 
     const [formData, setFormData] = useState(initialData);
-    const submitTitle = () => {
-        if(title === '' ) return;
-        setTitles( prevTitles => [...prevTitles, title ]);
-        setTitle('')
-    }
-    
-    const titleChange = e => {
-        setTitle(e.target.value);
-    }
-    
-    const deleteTitle = (index) => {
-        setTitles(titles.filter((t,i) => i !== index));
-    }
     
     const changeData = (key, value) => {
         setFormData(curr => ({
@@ -98,7 +81,24 @@ const Form = () => {
 
     const handleSubmit = e =>{
         e.preventDefault();
+        console.log(formData);
+        setFormData(initialData);
     }
+// Questo non funziona
+    // useEffect(() => {
+    //     return () => {
+    //         alert('Stai cambiando il pubblicantibus');
+    //     }
+    // },[formData.published]);
+// Questo invece funziona
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(() => {
+        if (isMounted) {
+            alert('Stai cambiando il pubblicantibus');
+        } else {
+            setIsMounted(true);
+        }
+    }, [formData.published]);
 
     return (
     <>  
@@ -143,23 +143,25 @@ const Form = () => {
                             )
                         case 'select':
                             return(
-                                <select 
-                                    key={`form-element${index}`}
-                                    name={name}
-                                    value={formData[name]}
-                                    onChange={e => changeData(name, e.target.value)}
-                                >
-                                    <option value="">Selezione un'opzione</option>
-                                    {options.map((option, o)=>(
-                                        <option
-                                            key={`form-element${index}-option${o}`}
-                                            value={option.value}
+                                <label key={`form-element${index}`}>
+                                    {label}:
+                                    <select 
+                                        name={name}
+                                        value={formData[name]}
+                                        onChange={e => changeData(name, e.target.value)}
+                                    >
+                                        <option value="">Selezione un'opzione</option>
+                                        {options.map((option, o)=>(
+                                            <option
+                                                key={`form-element${index}-option${o}`}
+                                                value={option.value}
 
-                                        >
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
+                                            >
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </label>
                             )
                         case 'multi-checkbox':
                             return(
@@ -177,20 +179,8 @@ const Form = () => {
                     }
                 })
             }
+            <button>Salva</button>
         </form>
-        
-        <ul>
-            {titles.map((t,i)=>{
-              return <li key={`key-${i}`}>
-                {t} 
-                <ChangeInput
-                    titles = {titles}
-                    setTitles = {setTitles}
-                    index = {i}
-                />
-                </li>
-            })}
-        </ul>
     </>
     )
 }
