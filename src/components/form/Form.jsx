@@ -16,13 +16,43 @@ const formTemplate = {
     },
     category: {
         type: 'select',
-        options: ['frontend', 'backend', 'fullstack'],
-        label:'Categoria'
+        label:'Categoria',
+        options: [
+            {
+                label:'Front End',
+                value: 'front'
+            },
+            {
+                label:'Back End',
+                value: 'back'
+            },
+            {
+                label:'Full Stack',
+                value: 'full'
+            }
+        ]
     },
     tags: {
         type: 'multi-checkbox',
-        options: ['css','js','php','html'],
-        label:'Tag'
+        label:'Tag',
+        options: [
+            {
+                label:'CSS',
+                value: 'css'
+            },
+            {
+                label:'HTML',
+                value: 'html'
+            },
+            {
+                label:'PHP',
+                value: 'php'
+            },
+            {
+                label:'JavaScript',
+                value: 'js'
+            }
+        ]
     },
     published: {
         type:'checkbox',
@@ -43,7 +73,7 @@ const Form = () => {
         published: false
     };
 
-    const [form, setForm] = useState(initialData);
+    const [formData, setFormData] = useState(initialData);
     const submitTitle = () => {
         if(title === '' ) return;
         setTitles( prevTitles => [...prevTitles, title ]);
@@ -58,6 +88,13 @@ const Form = () => {
         setTitles(titles.filter((t,i) => i !== index));
     }
     
+    const changeData = (key, value) => {
+        setFormData(curr => ({
+            ...curr,
+            [key]: value
+        }))
+    }
+
     const handleSubmit = e =>{
         e.preventDefault();
     }
@@ -70,19 +107,41 @@ const Form = () => {
                     switch(type){                        
                         case 'text':
                             return(
-
+                                <input
+                                    key = {`form-element${index}`}
+                                    name={name}
+                                    type="text"
+                                    placeholder={label}
+                                    value={formData[name]}
+                                    onChange={e => changeData(name, e.target.value)}
+                                />
                             )
                         case 'textarea':
                             return(
-
+                                <textarea
+                                    key = {`form-element${index}`}
+                                    name={name}
+                                    placeholder={label}
+                                    value={formData[name]}
+                                    onChange={e => changeData(name, e.target.value)}
+                                />
                             )
                         case 'checkbox':
                             return(
-
+                                <input
+                                    key = {`form-element${index}`}
+                                    name={name}
+                                    type="checkbox"
+                                    placeholder={label}
+                                    checked={formData[name]}
+                                    onChange={e => changeData(name, e.target.checked)}
+                                />
                             )
                         case 'select':
                             return(
+                                <select name={name}>
 
+                                </select>
                             )
                         case 'multi-checkbox':
                             return(
