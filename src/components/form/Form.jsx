@@ -2,18 +2,32 @@ import { useState } from "react";
 import ChangeInput from "./changeInput/ChangeInput";
 
 const formTemplate = {
-    title:'text',
-    image: 'text',
-    content: 'textarea',
+    title:{
+        type:'text',
+        label:'Titolo'
+    },
+    image: {
+        type:'text',
+        label:'Immagine'
+    },
+    content: {
+        type:'textarea',
+        label:'Contenuto'
+    },
     category: {
         type: 'select',
-        options: ['frontend', 'backend', 'fullstack']
+        options: ['frontend', 'backend', 'fullstack'],
+        label:'Categoria'
     },
     tags: {
         type: 'multi-checkbox',
-        options: ['css','js','php','html']
+        options: ['css','js','php','html'],
+        label:'Tag'
     },
-    published: 'checkbox'
+    published: {
+        type:'checkbox',
+        label:'Pubblicato'
+    }
 }
 
 const Form = () => {
@@ -52,22 +66,8 @@ const Form = () => {
     <>  
         <form onSubmit={handleSubmit}>
             {Object.keys(formTemplate).map((name,index)=>{
-                const template = formTemplate[name];
-                if(typeof template === 'object'){
-                    const {type, options} = template;
-                    switch(type){
-                        case 'select':
-                            return(
-
-                            )
-                        case 'multi-checkbox':
-                            return(
-                                
-                            )
-                    }
-                }else{
-                    const type = template;
-                    switch(type){
+                const {type, label, options} = formTemplate[name];
+                    switch(type){                        
                         case 'text':
                             return(
 
@@ -80,8 +80,15 @@ const Form = () => {
                             return(
 
                             )
+                        case 'select':
+                            return(
+
+                            )
+                        case 'multi-checkbox':
+                            return(
+                                
+                            )
                     }
-                }
                 })
             }
         </form>
