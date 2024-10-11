@@ -1,0 +1,35 @@
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 40%;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px white;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.m-right{
+    margin-right: 10px;
+}
+
+input,
+textarea,
+select{
+    border-radius: 5px;
+}
+
+
+.submit-button{
+    padding: 10px 0;
+    border-radius: 10px;
+    &:hover{
+        background-color: #474747;
+    }
+}

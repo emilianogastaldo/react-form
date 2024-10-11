@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MultiCheckbox from "./MultiCheckbox";
+import './Form.css';
 
 const formTemplate = {
     title:{
@@ -91,14 +92,14 @@ const Form = () => {
     //     }
     // },[formData.published]);
 // Questo invece funziona
-    const [isMounted, setIsMounted] = useState(false);
-    useEffect(() => {
-        if (isMounted) {
-            alert('Stai cambiando il pubblicantibus');
-        } else {
-            setIsMounted(true);
-        }
-    }, [formData.published]);
+    // const [isMounted, setIsMounted] = useState(false);
+    // useEffect(() => {
+    //     if (isMounted) {
+    //         alert('Stai cambiando il pubblicantibus');
+    //     } else {
+    //         setIsMounted(true);
+    //     }
+    // }, [formData.published]);
 
     return (
     <>  
@@ -108,42 +109,46 @@ const Form = () => {
                     switch(type){                        
                         case 'text':
                             return(
-                                <input
-                                    key={`form-element${index}`}
-                                    name={name}
-                                    type="text"
-                                    placeholder={label}
-                                    value={formData[name]}
-                                    onChange={e => changeData(name, e.target.value)}
-                                />
+                                <label className="flex-column" key={`form-element${index}`}>
+                                    {label}
+                                    <input
+                                        name={name}
+                                        type="text"
+                                        placeholder={label}
+                                        value={formData[name]}
+                                        onChange={e => changeData(name, e.target.value)}
+                                    />
+                                </label>
                             )
                         case 'textarea':
                             return(
-                                <textarea
-                                    key={`form-element${index}`}
-                                    name={name}
-                                    placeholder={label}
-                                    value={formData[name]}
-                                    onChange={e => changeData(name, e.target.value)}
-                                />
+                                <label className="flex-column" key={`form-element${index}`}>
+                                    {label}
+                                    <textarea
+                                        name={name}
+                                        placeholder={label}
+                                        value={formData[name]}
+                                        onChange={e => changeData(name, e.target.value)}
+                                        rows={5}
+                                    />
+                                </label>
                             )
                         case 'checkbox':
                             return(
-                                <label
-                                    key={`form-element${index}`}
-                                >
-                                    {label}
+                                <label key={`form-element${index}`}>
                                     <input                                        
                                         name={name}
                                         type="checkbox"
                                         checked={formData[name]}
                                         onChange={e => changeData(name, e.target.checked)}
+                                        className="m-right"
                                     />
+                                    {label}
                                 </label>
                             )
                         case 'select':
                             return(
-                                <label key={`form-element${index}`}>
+                                <label className="flex-column" key={`form-element${index}`}>
                                     {label}:
                                     <select 
                                         name={name}
@@ -179,7 +184,7 @@ const Form = () => {
                     }
                 })
             }
-            <button>Salva</button>
+            <button className="submit-button">Salva</button>
         </form>
     </>
     )
