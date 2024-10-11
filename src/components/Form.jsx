@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ChangeInput from "./changeInput/ChangeInput";
+import ChangeInput from "./ChangeInput";
 
 const formTemplate = {
     title:{
@@ -158,7 +158,7 @@ const Form = () => {
                             )
                         case 'multi-checkbox':
                             return(
-                                
+                                <h1>prova</h1>
                             )
                     }
                 })
