@@ -9,7 +9,10 @@ const formTemplate = {
         type: 'select',
         options: ['frontend', 'backend', 'fullstack']
     },
-    tags: ['css','js','php','html'],
+    tags: {
+        type: 'multi-checkbox',
+        options: ['css','js','php','html']
+    },
     published: 'checkbox'
 }
 
@@ -48,9 +51,39 @@ const Form = () => {
     return (
     <>  
         <form onSubmit={handleSubmit}>
-            <h1>Inserisci un nome</h1>
-            <input type="text" value={title} onChange={titleChange} />
-            <button>Salva</button>
+            {Object.keys(formTemplate).map((name,index)=>{
+                const template = formTemplate[name];
+                if(typeof template === 'object'){
+                    const {type, options} = template;
+                    switch(type){
+                        case 'select':
+                            return(
+
+                            )
+                        case 'multi-checkbox':
+                            return(
+                                
+                            )
+                    }
+                }else{
+                    const type = template;
+                    switch(type){
+                        case 'text':
+                            return(
+
+                            )
+                        case 'textarea':
+                            return(
+
+                            )
+                        case 'checkbox':
+                            return(
+
+                            )
+                    }
+                }
+                })
+            }
         </form>
         
         <ul>
