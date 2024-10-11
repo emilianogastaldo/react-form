@@ -108,7 +108,7 @@ const Form = () => {
                         case 'text':
                             return(
                                 <input
-                                    key = {`form-element${index}`}
+                                    key={`form-element${index}`}
                                     name={name}
                                     type="text"
                                     placeholder={label}
@@ -119,7 +119,7 @@ const Form = () => {
                         case 'textarea':
                             return(
                                 <textarea
-                                    key = {`form-element${index}`}
+                                    key={`form-element${index}`}
                                     name={name}
                                     placeholder={label}
                                     value={formData[name]}
@@ -129,7 +129,7 @@ const Form = () => {
                         case 'checkbox':
                             return(
                                 <input
-                                    key = {`form-element${index}`}
+                                    key={`form-element${index}`}
                                     name={name}
                                     type="checkbox"
                                     placeholder={label}
@@ -139,8 +139,21 @@ const Form = () => {
                             )
                         case 'select':
                             return(
-                                <select name={name}>
+                                <select 
+                                    key={`form-element${index}`}
+                                    name={name}
+                                    value={formData[name]}
+                                    onChange={e => changeData(name, e.target.value)}
+                                >
+                                    {options.map((option, o)=>(
+                                        <option
+                                            key={`form-element${index}-option${o}`}
+                                            value={option.value}
 
+                                        >
+                                            {option.label}
+                                        </option>
+                                    ))}
                                 </select>
                             )
                         case 'multi-checkbox':
