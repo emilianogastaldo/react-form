@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ChangeInput from "./ChangeInput";
+import MultiCheckbox from "./MultiCheckbox";
 
 const formTemplate = {
     title:{
@@ -128,14 +129,17 @@ const Form = () => {
                             )
                         case 'checkbox':
                             return(
-                                <input
+                                <label
                                     key={`form-element${index}`}
-                                    name={name}
-                                    type="checkbox"
-                                    placeholder={label}
-                                    checked={formData[name]}
-                                    onChange={e => changeData(name, e.target.checked)}
-                                />
+                                >
+                                    {label}
+                                    <input                                        
+                                        name={name}
+                                        type="checkbox"
+                                        checked={formData[name]}
+                                        onChange={e => changeData(name, e.target.checked)}
+                                    />
+                                </label>
                             )
                         case 'select':
                             return(
@@ -145,6 +149,7 @@ const Form = () => {
                                     value={formData[name]}
                                     onChange={e => changeData(name, e.target.value)}
                                 >
+                                    <option value="">Selezione un'opzione</option>
                                     {options.map((option, o)=>(
                                         <option
                                             key={`form-element${index}-option${o}`}
@@ -158,7 +163,16 @@ const Form = () => {
                             )
                         case 'multi-checkbox':
                             return(
-                                <h1>prova</h1>
+                                <MultiCheckbox
+                                    key={`form-element${index}`}
+                                    label={label}
+                                    options={options}
+                                    values={formData[name]}
+                                    onChange={value => changeData(name, formData[name].includes(value) ? 
+                                        formData[name].filter(el => el !== value) :
+                                        [...formData[name], value]
+                                    )}
+                                />
                             )
                     }
                 })
