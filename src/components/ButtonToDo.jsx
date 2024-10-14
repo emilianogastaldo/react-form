@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const ButtonToDo = () => {
 
     const [toDos, setToDos] = useState([])
@@ -12,6 +12,10 @@ const ButtonToDo = () => {
             console.error(err);
         }
     }
+
+    // useEffect(()=>{
+    //     fetchToDos()
+    // },[])
 
      return (
      <>
