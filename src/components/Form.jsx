@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import MultiCheckbox from "./MultiCheckbox";
 import './Form.css';
+import axios from "axios";
 
 // Creo un templare con tutti i dati del form che mi servono
 const formTemplate = {
@@ -21,22 +22,22 @@ const formTemplate = {
         default: ''
 
     },
-    category: {
+    categoryId: {
         type: 'select',
         label:'Categoria',
         default: '',
         options: [
             {
                 label:'Front End',
-                value: 'front'
+                value: 1
             },
             {
                 label:'Back End',
-                value: 'back'
+                value: 2
             },
             {
                 label:'Full Stack',
-                value: 'full'
+                value: 3
             }
         ]
     },
@@ -47,19 +48,19 @@ const formTemplate = {
         options: [
             {
                 label:'CSS',
-                value: 'css'
+                value: 1
             },
             {
                 label:'HTML',
-                value: 'html'
+                value: 2
             },
             {
                 label:'PHP',
-                value: 'php'
+                value: 3
             },
             {
                 label:'JavaScript',
-                value: 'js'
+                value: 4
             }
         ]
     },
@@ -73,7 +74,7 @@ const formTemplate = {
 const Form = () => {
     // Inizializzo i dati iniziali del form
     const initialData = {};
-    for( const key in formTemplate){
+    for(const key in formTemplate){
         initialData[key] = formTemplate[key].default;
     }
 
@@ -89,9 +90,14 @@ const Form = () => {
     }
 
     // Funzione per il submit del form
-    const handleSubmit = e =>{
+    const handleSubmit = async e =>{
         e.preventDefault();
         console.log(formData);
+        try{
+            const res = await axios.post('http://localhost:8000/posts', formData);
+        }catch(err){
+            console.error(err)
+        }
         setFormData(initialData);
     }
 // Questo non funziona
@@ -170,7 +176,6 @@ const Form = () => {
                                             <option
                                                 key={`form-element${index}-option${o}`}
                                                 value={option.value}
-
                                             >
                                                 {option.label}
                                             </option>
