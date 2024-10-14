@@ -7,7 +7,11 @@ import PostSection from './components/PostSection'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Form/>
-    <PostSection/>
+    <main>
+      <div className='container'>
+        <PostSection/>
+        <Form/>
+      </div>
+    </main>
   </StrictMode>,
 )
