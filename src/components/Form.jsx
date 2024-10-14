@@ -2,22 +2,29 @@ import { useEffect, useState } from "react";
 import MultiCheckbox from "./MultiCheckbox";
 import './Form.css';
 
+// Creo un templare con tutti i dati del form che mi servono
 const formTemplate = {
     title:{
         type:'text',
-        label:'Titolo'
+        label:'Titolo',
+        default: ''
     },
     image: {
         type:'text',
-        label:'Immagine'
+        label:'Immagine',
+        default: ''
+
     },
     content: {
         type:'textarea',
-        label:'Contenuto'
+        label:'Contenuto',
+        default: ''
+
     },
     category: {
         type: 'select',
         label:'Categoria',
+        default: '',
         options: [
             {
                 label:'Front End',
@@ -36,6 +43,7 @@ const formTemplate = {
     tags: {
         type: 'multi-checkbox',
         label:'Tag',
+        default: [],
         options: [
             {
                 label:'CSS',
@@ -57,22 +65,22 @@ const formTemplate = {
     },
     published: {
         type:'checkbox',
-        label:'Pubblicato'
+        label:'Pubblicato',
+        default: false
     }
 }
 
 const Form = () => {
-    const initialData = {
-        title: '',
-        image: '',
-        content: '',
-        category: '',
-        tags: [],
-        published: false
-    };
+    // Inizializzo i dati iniziali del form
+    const initialData = {};
+    for( const key in formTemplate){
+        initialData[key] = formTemplate[key].default;
+    }
 
+    // Creo un useState per controllare e raccogliere i dati del form
     const [formData, setFormData] = useState(initialData);
-    
+
+    // Funzione per salvare i nuovi dati
     const changeData = (key, value) => {
         setFormData(curr => ({
             ...curr,
@@ -80,6 +88,7 @@ const Form = () => {
         }))
     }
 
+    // Funzione per il submit del form
     const handleSubmit = e =>{
         e.preventDefault();
         console.log(formData);
@@ -105,6 +114,7 @@ const Form = () => {
     <>  
         <form onSubmit={handleSubmit}>
             {Object.keys(formTemplate).map((name,index)=>{
+                // Per ogni chiave dell'oggetto, controllo che tipo di input mi serve e lo creo
                 const {type, label, options} = formTemplate[name];
                     switch(type){                        
                         case 'text':

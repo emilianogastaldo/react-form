@@ -4,6 +4,7 @@ const MultiCheckbox = ({label, options, values, onChange}) => {
        <div className='flex-column'>
         <p><strong>{label}</strong></p>
         {options.map((option, index)=>(
+            // Creo i checkbox dall'array che arriva
             <label  key={`multi-check${index}`}>                
                 <input
                     className='m-right'                    
