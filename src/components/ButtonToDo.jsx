@@ -6,7 +6,7 @@ const ButtonToDo = () => {
 
     const fetchToDos = async () => {
         try{
-            const res = await axios('https://jsonplaceholder.typicode.com/todos');
+            const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
             setToDos(res.data);
         }catch(err){
             console.error(err);
