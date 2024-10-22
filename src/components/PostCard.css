@@ -1,0 +1,25 @@
+.post{
+    margin: 1rem 0;
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 1rem;
+    .card-image{
+      display: flex;
+      align-items: center;
+      img{
+        place-content: center;
+        object-fit: cover;
+        height: 140px;
+        width: 180px;
+      }
+    }
+    .card-content{
+      padding: 1rem;
+    }
+    &:not(.available){
+      opacity: .5;
+    }
+  }
