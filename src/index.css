@@ -8,9 +8,17 @@
   box-sizing: border-box;
 }
 
-.container{
+.p-2{
+  padding: 2rem;
+}
+
+.paginator{
   display: flex;
+  gap: .5rem;
   align-items: center;
-  justify-content: center;
-  gap: 2rem;
+  user-select: none;
+  button{
+    width: 18px;
+    height: 18px;
+  }
 }

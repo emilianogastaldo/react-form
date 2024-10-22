@@ -1,43 +1,48 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import PostCard from "./PostCard";
 
-const PostSection = () => {
-    const [posts, setPosts] = useState([])
-    const fetchPosts = async () => {
-        try{
-            const res = await axios.get('http://localhost:8000/posts');
-            const fetchedPosts = res.data.posts;
-            setPosts(fetchedPosts);
-        }catch(err){
-            console.error(err);
-        }
-    }
-    const deletePost = async (id) => {
+const PostSection = ({response, onPageChange}) => {
 
-        try{
-            const res = await axios.delete(`http://localhost:8000/posts/${id}`);
-        }catch(err){
-            console.error(err);
-        }finally{
-            fetchPosts();
-        }
-    }
+    const [currPage, setCurrPage] = useState(1);
+
     useEffect(()=>{
-        fetchPosts()
-    },[])
+        onPageChange(currPage)
+    },[currPage])
      return (
      <>
-       <section>
-       <button onClick={fetchPosts} >Raccogli post</button>
-       <button onClick={()=> {setPosts([])}} >Nascondi lista</button>
-       <ul>
-            {posts.map((post)=>(
-                <li key={`${post.id}`}>{post.title} <button onClick={()=>(deletePost(post.id))}>Elimina post</button></li>
-            ))}
-        </ul>
-
+        <section>
+            {console.log("respose da PostSection: ", response)}
+           
+            <div>
+                <div className="paginator">
+                    Pagina {currPage} di {response?.totalPages}
+                    {/* Renderizzo o meno i bottoni in base a che pagina mi trovo */}
+                    {currPage - 1 > 0 && <button onClick={()=>setCurrPage(curr => curr - 1)}>-</button>}
+                    {currPage + 1 <= response?.totalPages && <button onClick={()=>setCurrPage(curr => curr + 1)}>+</button>}                    
+                </div>
+                {response === null && 'Caricando i post...'}
+                {response?.posts?.length === 0 && 'Non ci sono post'}                
+                {response?.posts?.length > 0 &&
+                    response.posts.map(post => (
+                         <PostCard
+                         key={`post${post.id}`} 
+                         id = {post.id}
+                         title = {post.title}
+                         content = {post.content}
+                         imageUrl = {post.image}
+                         category = {post.categoryId}
+                         tags = {post.tags}
+                         published = {post.published}                     
+                        />
+                    // <li key={`${post.id}`}  >{post.title} <button onClick={()=>(deletePost(post.id))}>Elimina post</button></li>
+                ))
+                }
+                
+                
+            </div>
        </section>
      </>
      )
 }
+
 export default PostSection;

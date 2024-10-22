@@ -1,17 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import Form from './components/Form'
-import './index.css'
-import ButtonToDo from './components/ButtonToDo'
-import PostSection from './components/PostSection'
+import App from './App'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <main>
-      <div className='container'>
-        <PostSection/>
-        <Form/>
-      </div>
-    </main>
+    <App/>
   </StrictMode>,
 )
