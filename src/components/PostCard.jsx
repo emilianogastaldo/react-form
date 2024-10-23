@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './PostCard.css'
 import axios from 'axios';
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
@@ -18,6 +18,16 @@ const PostCard = ({id, title, content, imageUrl, category, tags, published}) => 
 
     const [deleteMode, setDeleteMode] = useState(false);
 
+    const dialogRef = useRef();
+
+    useEffect(()=>{
+        if(deleteMode){
+            dialogRef.current.showModal();
+        }else{
+            dialogRef.current.close();
+        }
+    },[deleteMode])
+    
      return (
         <div className={`post ${published ? 'available' : ''}`}>
             
@@ -43,7 +53,7 @@ const PostCard = ({id, title, content, imageUrl, category, tags, published}) => 
                 </p>
             </div>
             <button onClick={() => setDeleteMode(true)}>Elimina</button>
-            <dialog open={deleteMode}>
+            <dialog ref={dialogRef}>
                 <h3>Sei sicuro?</h3>
                 <p>Se procedi eliminerai il {title}</p>
                 <button>Elimina post</button>

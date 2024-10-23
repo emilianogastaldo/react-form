@@ -23,6 +23,8 @@
       opacity: .5;
     }
     dialog{
-      position: relative;
+      padding: 2rem;
+      top: 40%;
+      left: 45%;
     }
   }
