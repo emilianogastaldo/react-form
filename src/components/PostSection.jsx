@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 
-const PostSection = ({response, onPageChange}) => {
+const PostSection = ({response, onPageChange, onDelete}) => {
 
     const [currPage, setCurrPage] = useState(1);
 
@@ -32,7 +32,8 @@ const PostSection = ({response, onPageChange}) => {
                          imageUrl = {post.image}
                          category = {post.categoryId}
                          tags = {post.tags}
-                         published = {post.published}                     
+                         published = {post.published} 
+                         onDelete= {onDelete}                    
                         />
                     // <li key={`${post.id}`}  >{post.title} <button onClick={()=>(deletePost(post.id))}>Elimina post</button></li>
                 ))

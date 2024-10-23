@@ -19,6 +19,15 @@ const App = () => {
          console.error(err);
       }
     }
+
+    const deletePost = async (id) => {
+      try{
+          const res = await axios.delete(`${apiUrl}/posts/${id}`);
+          fetchPosts(1);
+      }catch(err){
+          console.error(err);
+      }
+   }
     useEffect(()=>{
     },[])
 
@@ -36,6 +45,8 @@ const App = () => {
         <PostSection
             response={response}
             onPageChange={page => fetchPosts(page)}
+            onDelete = {deletePost}
+            
         />
      </div>
      )

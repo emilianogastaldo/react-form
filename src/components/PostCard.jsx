@@ -3,23 +3,16 @@ import './PostCard.css'
 import axios from 'axios';
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
-const PostCard = ({id, title, content, imageUrl, category, tags, published}) => {
-    
-    const deletePost = async (id) => {
-        try{
-            const res = await axios.delete(`${apiUrl}/posts/${id}`);
-            if(res){
-                fetchPosts()
-            }
-        }catch(err){
-            console.error(err);
-        }
-    }
+const PostCard = ({id, title, content, imageUrl, category, tags, published, onDelete}) => {
 
     const [deleteMode, setDeleteMode] = useState(false);
 
     const dialogRef = useRef();
 
+    const deletePost = async () => {
+        await onDelete(id);
+        setDeleteMode(false);
+    }
     useEffect(()=>{
         if(deleteMode){
             dialogRef.current.showModal();
@@ -27,7 +20,7 @@ const PostCard = ({id, title, content, imageUrl, category, tags, published}) => 
             dialogRef.current.close();
         }
     },[deleteMode])
-    
+
      return (
         <div className={`post ${published ? 'available' : ''}`}>
             
@@ -56,7 +49,7 @@ const PostCard = ({id, title, content, imageUrl, category, tags, published}) => 
             <dialog ref={dialogRef}>
                 <h3>Sei sicuro?</h3>
                 <p>Se procedi eliminerai il {title}</p>
-                <button>Elimina post</button>
+                <button onClick={() => deletePost()}>Elimina post</button>
                 <button onClick={() => setDeleteMode(false)}>Torna indietro</button>
             </dialog>
         </div>
