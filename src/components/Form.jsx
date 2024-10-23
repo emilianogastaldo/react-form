@@ -11,7 +11,7 @@ const formTemplate = {
         default: ''
     },
     image: {
-        type:'text',
+        type:'file',
         label:'Immagine',
         default: ''
 
@@ -92,9 +92,12 @@ const Form = () => {
     // Funzione per il submit del form
     const handleSubmit = async e =>{
         e.preventDefault();
-        console.log(formData);
         try{
-            const res = await axios.post('http://localhost:8000/posts', formData);
+            const res = await axios.post('http://localhost:8000/posts', formData, {
+                headers: {
+                    "Content-Type":"multipart/form-data"
+                }
+            });
         }catch(err){
             console.error(err)
         }
@@ -133,6 +136,18 @@ const Form = () => {
                                         placeholder={label}
                                         value={formData[name]}
                                         onChange={e => changeData(name, e.target.value)}
+                                    />
+                                </label>
+                            )
+                        case 'file':
+                            return(
+                                <label className="flex-column" key={`form-element${index}`}>
+                                    {label}
+                                    <input
+                                        name={name}
+                                        type="file"
+                                        placeholder={label}
+                                        onChange={e => changeData(name, e.target.files[0])}
                                     />
                                 </label>
                             )

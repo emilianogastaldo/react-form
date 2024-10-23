@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './PostCard.css'
 import axios from 'axios';
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
@@ -14,8 +15,12 @@ const PostCard = ({id, title, content, imageUrl, category, tags, published}) => 
             console.error(err);
         }
     }
+
+    const [deleteMode, setDeleteMode] = useState(false);
+
      return (
         <div className={`post ${published ? 'available' : ''}`}>
+            
             <div className="card-image">
                 <img src={imageUrl} alt={title} />
             </div>
@@ -37,7 +42,13 @@ const PostCard = ({id, title, content, imageUrl, category, tags, published}) => 
                     {content || "Descrizione non disponibile"}
                 </p>
             </div>
-            <button onClick={() => (deletePost(id))}>Elimina</button>
+            <button onClick={() => setDeleteMode(true)}>Elimina</button>
+            <dialog open={deleteMode}>
+                <h3>Sei sicuro?</h3>
+                <p>Se procedi eliminerai il {title}</p>
+                <button>Elimina post</button>
+                <button onClick={() => setDeleteMode(false)}>Torna indietro</button>
+            </dialog>
         </div>
      )
 }

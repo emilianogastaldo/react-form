@@ -22,4 +22,7 @@
     &:not(.available){
       opacity: .5;
     }
+    dialog{
+      position: relative;
+    }
   }
