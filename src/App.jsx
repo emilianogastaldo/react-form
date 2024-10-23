@@ -14,7 +14,6 @@ const App = () => {
          setResponse(null);
          const res = await axios.get(`${apiUrl}/posts?page=${page}&limit=3`);
          setResponse(res.data);
-         console.log("Fetch da App:", response)
       }catch(err){
          console.error(err);
       }

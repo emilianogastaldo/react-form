@@ -10,9 +10,7 @@ const PostSection = ({response, onPageChange, onDelete}) => {
     },[currPage])
      return (
      <>
-        <section>
-            {console.log("respose da PostSection: ", response)}
-           
+        <section>           
             <div>
                 <div className="paginator">
                     Pagina {currPage} di {response?.totalPages}
