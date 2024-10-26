@@ -3,15 +3,15 @@ import './index.css'
 import PostSection from './components/PostSection'
 import { useEffect, useState } from 'react'
 import axios from "axios";
-import GlobalContext from './GlobalContext';
+import { GlobalProvider } from './GlobalContext';
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 const App = () => {
     const [mostraComponente, setMostraComponente] = useState(false)
     const [response, setResponse] = useState(null);
     
-    const[tags, setTags] = useState(['js','css','html']);
-    const[categories, setCategories] = useState(['back','front','full']);
+
+
     const fetchPosts = async (page) => {
        try{
          setResponse(null);
@@ -34,12 +34,26 @@ const App = () => {
     },[])
 
      return (
-      <GlobalContext.Provider 
-         value={{
-            tags,
-            categories
-         }}
-      >
+      <GlobalProvider>
+         {/* #TODO Rotte 
+            <BrowserRouter>
+               <Routes>
+                  <Route path="/" element={<DefaultLayout/>}>
+                     <Route path="*" element={<NotFound/>} />
+                     <Route index element={<Home/>} />
+                     <Route path="contacts" element={<Contacts/>} />
+                     <Route path="pizzas">
+                        <Route index element={<Pizzas/>} />
+                        <Route path=":id">
+                           <Route index element={<SinglePizza/>}/>
+                           <Route path="edit" element={<EditPizza/>}/>
+                        </Route>
+                        <Route path="create" element={<CreatePizza/>}/>
+                     </Route>
+                  </Route>
+               </Routes>
+            </BrowserRouter>
+          */}
          <div className='p-2'>
          <button onClick={()=> setMostraComponente(curr => !curr)}>{mostraComponente ? 'Nascondi form' : 'Mostra form'}</button>
          {mostraComponente && 
@@ -57,7 +71,7 @@ const App = () => {
                
          />
          </div>
-      </GlobalContext.Provider>
+      </GlobalProvider>
 
      )
 }
