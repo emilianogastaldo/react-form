@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MultiCheckbox from "./MultiCheckbox";
 import './Form.css';
 import axios from "axios";
+import GlobalContext from "../GlobalContext";
 
 // Creo un templare con tutti i dati del form che mi servono
 const formTemplate = {
@@ -72,6 +73,9 @@ const formTemplate = {
 }
 
 const Form = () => {
+
+    const value = useContext(GlobalContext);
+
     // Inizializzo i dati iniziali del form
     const initialData = {};
     for(const key in formTemplate){
