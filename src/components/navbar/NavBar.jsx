@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import './NavBar.css'
+import './Navbar.css'
 const urlPages = [
     {
         label: 'Home',
@@ -7,7 +7,7 @@ const urlPages = [
     },
     {
         label: 'Pizze',
-        href: '/pizzas'
+        href: '/Posts'
     },
     {
         label: 'Contatti',
@@ -15,7 +15,7 @@ const urlPages = [
     },
 ]
 
-const NavBar = () => {
+const Navbar = () => {
      return (
      <header>
         <nav>
@@ -32,4 +32,4 @@ const NavBar = () => {
      </header>
      )
 }
-export default NavBar;
+export default Navbar;

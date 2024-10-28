@@ -8,7 +8,7 @@ menu{
         text-decoration: none;
         font-weight: bold;
         font-size: 1.5rem;
-        color: darkgreen;
+        color: yellow;
         &.active{
             opacity: .5;
             /* Per togliere la manina dal link */
