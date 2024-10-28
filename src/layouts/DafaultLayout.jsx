@@ -1,10 +1,11 @@
 // Outlet serve per poter inserire dell'altro html all'interno del Layout 
 import { Outlet } from "react-router-dom";
+import NavBar from "../components/navbar/NavBar";
 
 const DefaultLayout = () => {
      return (
      <>
-       <h1>NavBar</h1>
+       <NavBar/>
        <Outlet/>
        <footer>Footer</footer>
      </>

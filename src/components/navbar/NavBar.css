@@ -1,0 +1,19 @@
+menu{
+    padding: 2rem 0;
+    display: flex;
+    list-style-type: none;
+    gap: 2rem;
+    justify-content: center;
+    a{
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: darkgreen;
+        &.active{
+            opacity: .5;
+            /* Per togliere la manina dal link */
+            pointer-events: none;
+        }
+    }
+    
+}
