@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './PostCard.css'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 const PostCard = ({id, title, content, imageUrl, category, tags, published, onDelete}) => {
@@ -28,7 +29,7 @@ const PostCard = ({id, title, content, imageUrl, category, tags, published, onDe
                 <img src={imageUrl} alt={title} />
             </div>
             <div className="card-content">
-                <h3>{title}</h3>
+                <h3><Link to={`/posts/${id}`}>{title}</Link></h3>
                 {tags.length > 0 ? 
                     <div className="tag">
                         <strong>Tag:</strong>

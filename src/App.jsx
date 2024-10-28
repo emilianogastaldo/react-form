@@ -1,40 +1,17 @@
 import Form from './components/Form'
-import './index.css'
-import PostSection from './components/PostSection'
 import { useEffect, useState } from 'react'
-import axios from "axios";
 import { GlobalProvider } from './GlobalContext';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import DefaultLayout from './layouts/DafaultLayout';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Contacts from './pages/Contacts';
-const apiUrl = import.meta.env.VITE_BASE_API_URL;
+import Posts from './pages/Posts';
+import './index.css'
+import SinglePost from './pages/SinglePost';
 
 const App = () => {
-    const [mostraComponente, setMostraComponente] = useState(false)
-    const [response, setResponse] = useState(null);
-    
-
-
-    const fetchPosts = async (page) => {
-       try{
-         setResponse(null);
-         const res = await axios.get(`${apiUrl}/posts?page=${page}&limit=3`);
-         setResponse(res.data);
-      }catch(err){
-         console.error(err);
-      }
-    }
-
-    const deletePost = async (id) => {
-      try{
-          const res = await axios.delete(`${apiUrl}/posts/${id}`);
-          fetchPosts(1);
-      }catch(err){
-          console.error(err);
-      }
-   }
+    const [mostraComponente, setMostraComponente] = useState(false);
     useEffect(()=>{
     },[])
 
@@ -47,15 +24,16 @@ const App = () => {
                      <Route index element={<Home/>} />
                      <Route path="*" element={<NotFound/>} />
                      <Route path="contacts" element={<Contacts/>} />
-                     {/* 
-                     <Route path="pizzas">
-                        <Route index element={<Pizzas/>} />
+                     
+                     <Route path="posts">
+                        <Route index element={<Posts/>} />
                         <Route path=":id">
-                           <Route index element={<SinglePizza/>}/>
-                           <Route path="edit" element={<EditPizza/>}/>
+                           <Route index element={<SinglePost/>}/>
                         </Route>
-                        <Route path="create" element={<CreatePizza/>}/>
-                     </Route> */}
+                        {/* 
+                           <Route path="edit" element={<EditPost/>}/>
+                        <Route path="create" element={<CreatePost/>}/> */}
+                     </Route>
                   </Route>
                </Routes>
             </BrowserRouter>
