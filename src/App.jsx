@@ -4,6 +4,11 @@ import PostSection from './components/PostSection'
 import { useEffect, useState } from 'react'
 import axios from "axios";
 import { GlobalProvider } from './GlobalContext';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import DefaultLayout from './layouts/DafaultLayout';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Contacts from './pages/Contacts';
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 const App = () => {
@@ -35,13 +40,14 @@ const App = () => {
 
      return (
       <GlobalProvider>
-         {/* #TODO Rotte 
+         {/* #TODO Rotte  */}
             <BrowserRouter>
                <Routes>
-                  <Route path="/" element={<DefaultLayout/>}>
-                     <Route path="*" element={<NotFound/>} />
+                  <Route path="/" element={<DefaultLayout/>}>                  
                      <Route index element={<Home/>} />
+                     <Route path="*" element={<NotFound/>} />
                      <Route path="contacts" element={<Contacts/>} />
+                     {/* 
                      <Route path="pizzas">
                         <Route index element={<Pizzas/>} />
                         <Route path=":id">
@@ -49,12 +55,12 @@ const App = () => {
                            <Route path="edit" element={<EditPizza/>}/>
                         </Route>
                         <Route path="create" element={<CreatePizza/>}/>
-                     </Route>
+                     </Route> */}
                   </Route>
                </Routes>
             </BrowserRouter>
-          */}
-         <div className='p-2'>
+         
+         {/* <div className='p-2'>
          <button onClick={()=> setMostraComponente(curr => !curr)}>{mostraComponente ? 'Nascondi form' : 'Mostra form'}</button>
          {mostraComponente && 
          <Form
@@ -70,7 +76,7 @@ const App = () => {
                onDelete = {deletePost}
                
          />
-         </div>
+         </div> */}
       </GlobalProvider>
 
      )
